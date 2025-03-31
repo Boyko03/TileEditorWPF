@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TileEditorWPF.Modals;
 
 namespace TileEditorWPF
 {
@@ -19,6 +20,14 @@ namespace TileEditorWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new NewTileset();
+            dialog.Owner = this;
+
+            var result = dialog.ShowDialog();
         }
     }
 }

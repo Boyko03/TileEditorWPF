@@ -1,0 +1,109 @@
+﻿<Window x:Class="TileEditorWPF.Modals.NewTileset"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:TileEditorWPF.Modals"
+        xmlns:controls="clr-namespace:TileEditorWPF.Controls"
+        mc:Ignorable="d"
+        Title="New Tileset - Tile Editor WPF"
+        Closing="NewTileset_OnClosing"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanResize"
+        Loaded="NewTileset_OnLoaded"
+        ShowInTaskbar="False">
+    <Window.Resources>
+        <local:ComboBoxValueToVisibilityConverter x:Key="ComboToVis" />
+    </Window.Resources>
+
+    <Grid Style="{StaticResource Main}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Tileset"  Margin="0 5 0 0"/>
+        <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Margin="5 0 5 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5">_Name:</Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 5 5 5"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Margin="5">Type:</Label>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="0 5 0 5" x:Name="TypeBox">
+                    <ComboBoxItem IsSelected="True">Based on Tileset Image</ComboBoxItem>
+                    <ComboBoxItem>Collection of Images</ComboBoxItem>
+                </ComboBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" Margin="5" IsEnabled="False">Embed in map</CheckBox>
+            </Grid>
+        </Border>
+
+        <Label Grid.Row="2" Content="Image" Margin="0 5 0 0" Visibility="{Binding SelectedItem.Content, ElementName=TypeBox, Converter={StaticResource ComboToVis}}"/>
+        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" CornerRadius="2" Margin="5 0 5 0" Visibility="{Binding SelectedItem.Content, ElementName=TypeBox, Converter={StaticResource ComboToVis}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Margin="5">Source:</Label>
+                <TextBox Name="SourceFile" Grid.Row="0" Grid.Column="1" Margin="0 5 0 5"/>
+                <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="ButtonBrowse_OnClick">Browse...</Button>
+
+                <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal" Margin="5">
+                    <CheckBox Name="UseTransparentColor">Use transparent color:</CheckBox>
+                    <xctk:ColorPicker Name="ClrPckerBackground" ColorMode="ColorCanvas" Margin="5 0 0 0" IsEnabled="{Binding IsChecked, ElementName=UseTransparentColor}"/>
+                    <Button Margin="5 0 5 0" Padding="10" IsEnabled="{Binding IsChecked, ElementName=UseTransparentColor}"/>
+                </StackPanel>
+
+                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="5 5 0 5">Tile width:</TextBlock>
+                    <controls:MyIntegerUpDown Units="px" Grid.Column="1" Grid.Row="0" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0" Margin="5">Margin:</TextBlock>
+                    <controls:MyIntegerUpDown Units="px" Grid.Column="3" Grid.Row="0" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="5 5 0 5">Tile height:</TextBlock>
+                    <controls:MyIntegerUpDown Units="px" Grid.Column="1" Grid.Row="1" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Margin="5">Spacing:</TextBlock>
+                    <controls:MyIntegerUpDown Units="px" Grid.Column="3" Grid.Row="1" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- Accept or Cancel -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Name="OkButton" Click="OkButton_OnClick" IsDefault="True">_Save As...</Button>
+            <Button Name="CancelButton" Click="CancelButton_OnClick" IsCancel="True" Margin="5 0 0 0">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>
