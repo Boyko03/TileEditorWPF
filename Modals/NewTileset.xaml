@@ -40,7 +40,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Margin="5">_Name:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 5 5 5"/>
+                <TextBox x:Name="FileName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 5 5 5"/>
 
                 <Label Grid.Row="1" Grid.Column="0" Margin="5">Type:</Label>
                 <ComboBox Grid.Row="1" Grid.Column="1" Margin="0 5 0 5" x:Name="TypeBox">
@@ -66,12 +66,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Margin="5">Source:</Label>
-                <TextBox Name="SourceFile" Grid.Row="0" Grid.Column="1" Margin="0 5 0 5"/>
+                <TextBox x:Name="SourceFile" Grid.Row="0" Grid.Column="1" Margin="0 5 0 5"/>
                 <Button Grid.Row="0" Grid.Column="2" Margin="5" Click="ButtonBrowse_OnClick">Browse...</Button>
 
                 <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Orientation="Horizontal" Margin="5">
                     <CheckBox Name="UseTransparentColor">Use transparent color:</CheckBox>
-                    <xctk:ColorPicker Name="ClrPckerBackground" ColorMode="ColorCanvas" Margin="5 0 0 0" IsEnabled="{Binding IsChecked, ElementName=UseTransparentColor}"/>
+                    <xctk:ColorPicker x:Name="ClrPickerBackground" ColorMode="ColorCanvas" Margin="5 0 0 0" IsEnabled="{Binding IsChecked, ElementName=UseTransparentColor}"/>
                     <Button Margin="5 0 5 0" Padding="10" IsEnabled="{Binding IsChecked, ElementName=UseTransparentColor}"/>
                 </StackPanel>
 
@@ -88,21 +88,21 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0" Margin="5 5 0 5">Tile width:</TextBlock>
-                    <controls:MyIntegerUpDown Units="px" Grid.Column="1" Grid.Row="0" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <controls:MyIntegerUpDown x:Name="TileWidth" Units="px" Grid.Column="1" Grid.Row="0" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
                     <TextBlock Grid.Column="2" Grid.Row="0" Margin="5">Margin:</TextBlock>
-                    <controls:MyIntegerUpDown Units="px" Grid.Column="3" Grid.Row="0" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <controls:MyIntegerUpDown x:Name="TileMargin" Units="px" Grid.Column="3" Grid.Row="0" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
 
                     <TextBlock Grid.Column="0" Grid.Row="1" Margin="5 5 0 5">Tile height:</TextBlock>
-                    <controls:MyIntegerUpDown Units="px" Grid.Column="1" Grid.Row="1" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <controls:MyIntegerUpDown x:Name="TileHeight" Units="px" Grid.Column="1" Grid.Row="1" Margin="0 5 0 5" Value="32" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
                     <TextBlock Grid.Column="2" Grid.Row="1" Margin="5">Spacing:</TextBlock>
-                    <controls:MyIntegerUpDown Units="px" Grid.Column="3" Grid.Row="1" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
+                    <controls:MyIntegerUpDown x:Name="TileSpacing" Units="px" Grid.Column="3" Grid.Row="1" Margin="0 5 5 5" Value="0" FormatString="G" Minimum="0" Maximum="9999" Width="80"/>
                 </Grid>
             </Grid>
         </Border>
 
         <!-- Accept or Cancel -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-            <Button Name="OkButton" Click="OkButton_OnClick" IsDefault="True">_Save As...</Button>
+            <Button Name="SaveAsButton" Click="SaveAsButton_OnClick" IsDefault="True">_Save As...</Button>
             <Button Name="CancelButton" Click="CancelButton_OnClick" IsCancel="True" Margin="5 0 0 0">Cancel</Button>
         </StackPanel>
     </Grid>
